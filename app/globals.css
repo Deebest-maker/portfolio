@@ -24,3 +24,120 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* PERFECT LIGHT MODE - READABLE & BEAUTIFUL */
+.light {
+  --dark-bg: #ffffff;
+  --dark-card: #f8fafc;
+  --electric-blue: #1d4ed8;
+  --toxic-green: #047857;
+}
+
+.light body {
+  background: linear-gradient(to bottom, #f0f9ff, #ffffff) !important;
+}
+
+.light .bg-dark-bg {
+  background: #ffffff !important;
+}
+
+.light .bg-dark-card {
+  background: #f8fafc !important;
+}
+
+/* TEXT - DARK & READABLE IN LIGHT MODE */
+.light .text-white {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+.light .text-gray-300 {
+  color: #334155 !important;
+}
+
+.light .text-gray-400 {
+  color: #475569 !important;
+}
+
+.light .text-gray-500 {
+  color: #64748b !important;
+}
+
+/* COLORS STAY VIBRANT */
+.light .text-electric-blue {
+  color: #1d4ed8 !important;
+}
+
+.light .text-toxic-green {
+  color: #047857 !important;
+}
+
+/* BORDERS */
+.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.light .border-electric-blue\/30 {
+  border-color: rgba(29, 78, 216, 0.3) !important;
+}
+
+/* BACKGROUNDS */
+.light .bg-dark-bg\/50 {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.light .bg-dark-card\/50 {
+  background: rgba(248, 250, 252, 0.9) !important;
+}
+
+.light .bg-dark-card\/30 {
+  background: rgba(248, 250, 252, 0.7) !important;
+}
+
+/* GRADIENT BACKGROUNDS */
+.light .bg-gradient-to-br {
+  background: linear-gradient(
+    to bottom right,
+    #dbeafe,
+    #ffffff,
+    #d1fae5
+  ) !important;
+}
+
+.light .bg-gradient-to-b {
+  background: linear-gradient(to bottom, #f0f9ff, #ffffff) !important;
+}
+
+/* BUTTONS */
+.light .bg-toxic-green {
+  background: linear-gradient(135deg, #047857, #059669) !important;
+  color: white !important;
+}
+
+.light .bg-electric-blue\/10 {
+  background: rgba(29, 78, 216, 0.1) !important;
+}
+
+.light .bg-electric-blue\/20 {
+  background: rgba(29, 78, 216, 0.15) !important;
+}
+
+/* CARDS WITH SHADOWS */
+.light [class*="backdrop-blur"] {
+  backdrop-filter: blur(10px) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* PARTICLES & DECORATIVE ELEMENTS */
+.light .bg-electric-blue {
+  background: #1d4ed8 !important;
+}
+
+.light .bg-toxic-green {
+  background: #047857 !important;
+}
