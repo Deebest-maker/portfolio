@@ -106,16 +106,13 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-5xl font-bold text-white mb-4"
           >
-            Let's Build{" "}
-            <span className="bg-gradient-to-r from-toxic-green to-emerald-400 bg-clip-text text-transparent">
-              Something Legendary
-            </span>
+            Let's Build <span className="text-white">Something Legendary</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-gray-400 text-lg max-w-2xl mx-auto"
+            className="text-white text-lg max-w-2xl mx-auto"
           >
             Open to scholarship opportunities, collaborative projects, and
             innovative tech ventures. Let's connect and create the future

@@ -38,7 +38,6 @@ export default function Projects() {
           alert(`Database error: ${error.message}`);
         } else {
           console.log("Fetched projects:", data);
-          // Ensure tech is always an array
           const processedData = (data || []).map((project) => ({
             ...project,
             tech: Array.isArray(project.tech) ? project.tech : [],
@@ -107,16 +106,13 @@ export default function Projects() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-5xl font-bold text-white mb-4"
           >
-            Featured{" "}
-            <span className="bg-gradient-to-r from-toxic-green to-emerald-400 bg-clip-text text-transparent">
-              Projects
-            </span>
+            Featured <span className="text-white">Projects</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-gray-400 text-lg"
+            className="text-white text-lg"
           >
             Building the decentralized and intelligent future
           </motion.p>
@@ -233,7 +229,7 @@ function ProjectCard({
         </motion.h3>
 
         <motion.p
-          className="text-gray-400 mb-4 leading-relaxed"
+          className="text-white mb-4 leading-relaxed"
           style={{ transform: "translateZ(25px)" }}
         >
           {project.description}

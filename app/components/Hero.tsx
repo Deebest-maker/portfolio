@@ -57,7 +57,6 @@ export default function Hero() {
     >
       {/* Animated Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-dark-bg to-blue-900/30"></div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-electric-blue/10 via-transparent to-toxic-green/10 animate-pulse"></div>
 
       {/* Floating particles */}
       <div className="absolute inset-0">
@@ -84,11 +83,11 @@ export default function Hero() {
               transition={{ delay: 0.2 }}
               className="mb-6"
             >
-              <p className="text-toxic-green text-lg font-semibold mb-2 animate-pulse">
+              <p className="text-toxic-green text-lg font-semibold mb-2">
                 Hi there! 👋 I'm
               </p>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
-                <span className="inline-block transition-transform duration-300 bg-gradient-to-r from-electric-blue via-purple-400 to-toxic-green bg-clip-text text-transparent">
+                <span className="inline-block transition-transform duration-300">
                   {displayedText}
                   <span className="animate-blink">|</span>
                 </span>
@@ -108,7 +107,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-lg text-gray-300 mb-8 leading-relaxed"
+              className="text-lg text-white mb-8 leading-relaxed"
             >
               Engineering the future with blockchain innovation and artificial
               intelligence. Self-taught developer on a mission to solve
@@ -173,10 +172,6 @@ export default function Hero() {
             className="order-1 md:order-2 flex justify-center"
           >
             <div className="relative">
-              {/* Glowing rings around photo */}
-              <div className="absolute inset-0 bg-gradient-to-r from-electric-blue to-toxic-green rounded-full blur-2xl opacity-30 animate-pulse"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full blur-xl opacity-20 animate-ping"></div>
-
               {/* Photo container */}
               <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-electric-blue/50 hover:border-toxic-green transition-all duration-300 hover:scale-105 shadow-2xl">
                 {profileImage ? (
@@ -185,7 +180,6 @@ export default function Hero() {
                     alt="Toma Hamidu Haruna"
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      // Fallback to emoji if image fails to load
                       const target = e.currentTarget;
                       target.style.display = "none";
                       const parent = target.parentElement;

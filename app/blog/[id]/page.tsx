@@ -59,6 +59,16 @@ export default function BlogPost() {
     }
   };
 
+  const scrollToBlog = () => {
+    router.push("/#blog");
+    setTimeout(() => {
+      const blogSection = document.getElementById("blog");
+      if (blogSection) {
+        blogSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-dark-bg flex items-center justify-center">
@@ -85,6 +95,7 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-dark-bg">
+      {/* Hero Image Section */}
       <div className="relative h-96 overflow-hidden">
         {post.image ? (
           <img
@@ -95,27 +106,30 @@ export default function BlogPost() {
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-electric-blue/20 via-purple-500/20 to-toxic-green/20" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/50 to-transparent" />
 
+        {/* Strong dark gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/80 to-dark-bg/40" />
+
+        {/* Content over image */}
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="max-w-4xl mx-auto">
             <button
-              onClick={() => router.push("/#blog")}
-              className="flex items-center gap-2 text-gray-300 hover:text-toxic-green transition-colors mb-6"
+              onClick={scrollToBlog}
+              className="flex items-center gap-2 text-white hover:text-toxic-green transition-colors mb-6 font-semibold"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
             </button>
 
-            <span className="inline-block px-4 py-1 bg-electric-blue/20 text-electric-blue rounded-full text-sm font-semibold mb-4">
+            <span className="inline-block px-4 py-1 bg-electric-blue/30 text-white backdrop-blur-sm rounded-full text-sm font-semibold mb-4 border border-electric-blue/50">
               {post.category}
             </span>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
               {post.title}
             </h1>
 
-            <div className="flex items-center gap-6 text-gray-300">
+            <div className="flex items-center gap-6 text-white font-medium">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 {new Date(post.created_at).toLocaleDateString("en-US", {
@@ -140,6 +154,7 @@ export default function BlogPost() {
         </div>
       </div>
 
+      {/* Content Section */}
       <AnimatedSection className="max-w-4xl mx-auto px-6 py-16">
         <article className="prose prose-invert prose-lg max-w-none">
           <div
@@ -148,6 +163,7 @@ export default function BlogPost() {
           />
         </article>
 
+        {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <div className="mt-16 pt-16 border-t border-white/10">
             <h2 className="text-3xl font-bold text-white mb-8">
