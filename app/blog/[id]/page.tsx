@@ -29,7 +29,9 @@ export default function BlogPost() {
       setLoading(false);
     } else {
       setPost(data);
-      fetchRelatedPosts(data.category);
+      if (data) {
+        fetchRelatedPosts(data.category);
+      }
       setLoading(false);
     }
   }
@@ -59,14 +61,9 @@ export default function BlogPost() {
     }
   };
 
-  const scrollToBlog = () => {
-    router.push("/#blog");
-    setTimeout(() => {
-      const blogSection = document.getElementById("blog");
-      if (blogSection) {
-        blogSection.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 100);
+  const handleBackToBlog = () => {
+    // Navigate to homepage with blog hash
+    window.location.href = "/#blog";
   };
 
   if (loading) {
@@ -114,7 +111,7 @@ export default function BlogPost() {
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="max-w-4xl mx-auto">
             <button
-              onClick={scrollToBlog}
+              onClick={handleBackToBlog}
               className="flex items-center gap-2 text-white hover:text-toxic-green transition-colors mb-6 font-semibold"
             >
               <ArrowLeft className="w-4 h-4" />
