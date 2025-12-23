@@ -95,9 +95,9 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: "https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/profiles/profile-1765066092599.jpg",
+    icon: "https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/favicon.ico",
     shortcut:
-      "https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/profiles/profile-1765066092599.jpg",
+      "https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/favicon.ico",
     apple:
       "https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/profiles/profile-1765066092599.jpg",
   },
@@ -116,7 +116,8 @@ export default function RootLayout({
       <head>
         <link
           rel="icon"
-          href="https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/profiles/profile-1765066092599.jpg"
+          type="image/x-icon"
+          href="https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/favicon.ico"
         />
       </head>
       <body>
