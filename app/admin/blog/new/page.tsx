@@ -13,7 +13,7 @@ export default function AddBlogPost() {
     title: "",
     excerpt: "",
     content: "",
-    category: "Blockchain",
+    category: "",
     read_time: "5 min read",
     image: "",
     published: true,
@@ -59,6 +59,12 @@ export default function AddBlogPost() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.category.trim()) {
+      alert("Please enter a category");
+      return;
+    }
+
     setSaving(true);
 
     const { error } = await supabase.from("blog_posts").insert([formData]);
@@ -71,6 +77,14 @@ export default function AddBlogPost() {
       router.push("/admin/blog");
     }
   };
+
+  const suggestedCategories = [
+    "Blockchain",
+    "AI & ML",
+    "Web Development",
+    "Personal",
+    "Tutorial",
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-dark-bg via-dark-card to-dark-bg">
@@ -201,21 +215,27 @@ export default function AddBlogPost() {
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Category *
+                  Category * (Type your own or select)
                 </label>
-                <select
+                <input
+                  type="text"
+                  required
                   value={formData.category}
                   onChange={(e) =>
                     setFormData({ ...formData, category: e.target.value })
                   }
+                  list="category-suggestions"
+                  placeholder="e.g., Blockchain, AI & ML, Tutorial..."
                   className="w-full px-4 py-3 bg-dark-card/50 border border-electric-blue/30 rounded-lg text-white focus:outline-none focus:border-toxic-green"
-                >
-                  <option value="Blockchain">Blockchain</option>
-                  <option value="AI & ML">AI & ML</option>
-                  <option value="Web Development">Web Development</option>
-                  <option value="Personal">Personal</option>
-                  <option value="Tutorial">Tutorial</option>
-                </select>
+                />
+                <datalist id="category-suggestions">
+                  {suggestedCategories.map((cat) => (
+                    <option key={cat} value={cat} />
+                  ))}
+                </datalist>
+                <p className="text-gray-500 text-xs mt-1">
+                  Suggested: {suggestedCategories.join(", ")}
+                </p>
               </div>
 
               <div>
@@ -229,6 +249,7 @@ export default function AddBlogPost() {
                   onChange={(e) =>
                     setFormData({ ...formData, read_time: e.target.value })
                   }
+                  placeholder="e.g., 5 min read"
                   className="w-full px-4 py-3 bg-dark-card/50 border border-electric-blue/30 rounded-lg text-white focus:outline-none focus:border-toxic-green"
                 />
               </div>

@@ -86,10 +86,10 @@ export default function Hero() {
               <p className="text-toxic-green text-lg font-semibold mb-2">
                 Hi there! 👋 I'm
               </p>
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
-                <span className="inline-block transition-transform duration-300">
+              <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
+                <span className="inline-block transition-transform duration-300 bg-gradient-to-r from-electric-blue via-purple-500 to-toxic-green bg-clip-text text-transparent animate-gradient">
                   {displayedText}
-                  <span className="animate-blink">|</span>
+                  <span className="animate-blink text-electric-blue">|</span>
                 </span>
               </h1>
             </motion.div>
@@ -98,9 +98,27 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-2xl md:text-3xl text-electric-blue font-semibold mb-6"
+              className="text-2xl md:text-3xl font-bold mb-6"
             >
-              Blockchain & AI Developer | Full-Stack Engineer
+              <span
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent"
+                style={{
+                  WebkitTextFillColor: "transparent",
+                  WebkitBackgroundClip: "text",
+                }}
+              >
+                Blockchain & AI Developer
+              </span>{" "}
+              <span className="text-white">|</span>{" "}
+              <span
+                className="bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent"
+                style={{
+                  WebkitTextFillColor: "transparent",
+                  WebkitBackgroundClip: "text",
+                }}
+              >
+                Full-Stack Engineer
+              </span>
             </motion.h2>
 
             <motion.p
@@ -122,14 +140,14 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-8"
             >
               <a href="mailto:thmsharuna@gmail.com">
-                <button className="group relative px-8 py-4 bg-gradient-to-r from-toxic-green to-emerald-400 text-dark-bg font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-toxic-green/50">
+                <button className="group relative px-8 py-4 bg-gradient-to-r from-toxic-green to-emerald-400 text-white font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-toxic-green/50">
                   <span className="relative z-10">Get In Touch ✉️</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-toxic-green opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </button>
               </a>
 
               <a href="#blog">
-                <button className="px-8 py-4 border-2 border-electric-blue text-electric-blue font-bold rounded-lg hover:bg-electric-blue hover:text-dark-bg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-electric-blue/50">
+                <button className="px-8 py-4 border-2 border-electric-blue text-electric-blue font-bold rounded-lg hover:bg-electric-blue hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-electric-blue/50">
                   Read My Blog 📝
                 </button>
               </a>
@@ -213,6 +231,22 @@ export default function Hero() {
           </div>
         </a>
       </motion.div>
+
+      <style jsx>{`
+        @keyframes gradient {
+          0%,
+          100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
+        }
+      `}</style>
     </section>
   );
 }

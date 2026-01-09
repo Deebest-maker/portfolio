@@ -29,30 +29,37 @@ html {
   scroll-behavior: smooth;
 }
 
-/* PERFECT LIGHT MODE - READABLE & BEAUTIFUL */
+/* PROFESSIONAL LIGHT MODE - SOPHISTICATED & BEAUTIFUL */
 .light {
-  --dark-bg: #ffffff;
-  --dark-card: #f8fafc;
-  --electric-blue: #1d4ed8;
+  --dark-bg: #f1f5f9;
+  --dark-card: #e2e8f0;
+  --electric-blue: #1e40af;
   --toxic-green: #047857;
 }
 
+/* Main background - Subtle gray with gradient for depth */
 .light body {
-  background: linear-gradient(to bottom, #f0f9ff, #ffffff) !important;
+  background: linear-gradient(
+    to bottom,
+    #e0f2fe 0%,
+    #f1f5f9 50%,
+    #e2e8f0 100%
+  ) !important;
 }
 
 .light .bg-dark-bg {
-  background: #ffffff !important;
+  background: #f1f5f9 !important;
 }
 
 .light .bg-dark-card {
-  background: #f8fafc !important;
+  background: #e2e8f0 !important;
 }
 
-/* TEXT - DARK & READABLE IN LIGHT MODE */
+/* TEXT - PERFECTLY READABLE WITH GREAT CONTRAST */
 .light .text-white {
   color: #0f172a !important;
   font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .light .text-gray-300 {
@@ -67,77 +74,346 @@ html {
   color: #64748b !important;
 }
 
-/* COLORS STAY VIBRANT */
+/* VIBRANT ACCENT COLORS */
 .light .text-electric-blue {
-  color: #1d4ed8 !important;
+  color: #1e40af !important;
 }
 
 .light .text-toxic-green {
   color: #047857 !important;
 }
 
-/* BORDERS */
+/* BORDERS - More visible and sophisticated */
 .light .border-white\/10 {
-  border-color: rgba(0, 0, 0, 0.12) !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
 }
 
 .light .border-electric-blue\/30 {
-  border-color: rgba(29, 78, 216, 0.3) !important;
+  border-color: rgba(30, 64, 175, 0.35) !important;
 }
 
-/* BACKGROUNDS */
+/* CARD BACKGROUNDS - Better depth and contrast */
 .light .bg-dark-bg\/50 {
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(241, 245, 249, 0.95) !important;
 }
 
 .light .bg-dark-card\/50 {
-  background: rgba(248, 250, 252, 0.9) !important;
+  background: rgba(226, 232, 240, 0.9) !important;
 }
 
 .light .bg-dark-card\/30 {
-  background: rgba(248, 250, 252, 0.7) !important;
+  background: rgba(226, 232, 240, 0.75) !important;
 }
 
-/* GRADIENT BACKGROUNDS */
+.light .bg-dark-card\/40 {
+  background: rgba(226, 232, 240, 0.85) !important;
+}
+
+/* GRADIENT BACKGROUNDS - Richer colors */
 .light .bg-gradient-to-br {
   background: linear-gradient(
     to bottom right,
-    #dbeafe,
-    #ffffff,
-    #d1fae5
+    #bfdbfe,
+    #e0f2fe,
+    #a7f3d0
   ) !important;
 }
 
 .light .bg-gradient-to-b {
-  background: linear-gradient(to bottom, #f0f9ff, #ffffff) !important;
+  background: linear-gradient(to bottom, #dbeafe, #f1f5f9) !important;
 }
 
-/* BUTTONS */
+.light .bg-gradient-to-t {
+  background: linear-gradient(to top, #e0f2fe, transparent) !important;
+}
+
+/* BUTTONS - Solid and vibrant */
 .light .bg-toxic-green {
   background: linear-gradient(135deg, #047857, #059669) !important;
   color: white !important;
+  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25) !important;
 }
 
 .light .bg-electric-blue\/10 {
-  background: rgba(29, 78, 216, 0.1) !important;
+  background: rgba(30, 64, 175, 0.12) !important;
 }
 
 .light .bg-electric-blue\/20 {
-  background: rgba(29, 78, 216, 0.15) !important;
+  background: rgba(30, 64, 175, 0.18) !important;
 }
 
-/* CARDS WITH SHADOWS */
+/* CARDS WITH ENHANCED DEPTH */
 .light [class*="backdrop-blur"] {
-  backdrop-filter: blur(10px) !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* PARTICLES & DECORATIVE ELEMENTS */
+/* DECORATIVE ELEMENTS */
 .light .bg-electric-blue {
-  background: #1d4ed8 !important;
+  background: #1e40af !important;
 }
 
 .light .bg-toxic-green {
   background: #047857 !important;
+}
+
+/* HOVER STATES - Better feedback */
+.light button:hover,
+.light a:hover {
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* SHADOWS FOR DEPTH */
+.light .shadow-lg {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.light .shadow-xl {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.light .shadow-2xl {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* SKILLS SECTION - Professional smooth transitions */
+.light .bg-white\/80 {
+  background: rgba(30, 35, 45, 0.95) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+  border: 2px solid rgba(100, 116, 139, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dark .bg-white\/80,
+:not(.light) .bg-white\/80 {
+  background: rgba(10, 10, 10, 0.4) !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Skill items - Match "Blockchain & AI Developer" gradient style */
+.light .bg-blue-50 {
+  background: linear-gradient(
+    to right,
+    rgba(59, 130, 246, 0.12),
+    rgba(14, 165, 233, 0.12)
+  ) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dark .bg-blue-50,
+:not(.light) .bg-blue-50 {
+  background: rgba(14, 165, 233, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Skill text - Blue gradient in light mode, WHITE in dark mode */
+.light .text-blue-700 {
+  background: linear-gradient(to right, #3b82f6, #0ea5e9) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+}
+
+.dark .text-blue-700,
+:not(.light) .text-blue-700 {
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
+}
+
+/* Skill borders - Clear and visible in both modes */
+.light .border-blue-300 {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  border-width: 2px !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.dark .border-blue-300,
+:not(.light) .border-blue-300 {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  border-width: 2px !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.light .border-gray-200 {
+  border-color: rgba(100, 116, 139, 0.3) !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.dark .border-gray-200,
+:not(.light) .border-gray-200 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  transition: border-color 0.3s ease !important;
+}
+
+/* "10+ Technologies" box - WHITE background with dark border in light mode */
+.light .bg-gradient-to-r.from-blue-50.to-green-50 {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 2px solid rgba(100, 116, 139, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-50.to-green-50,
+:not(.light) .bg-gradient-to-r.from-blue-50.to-green-50 {
+  background: linear-gradient(
+    to right,
+    rgba(30, 30, 30, 0.8),
+    rgba(30, 30, 30, 0.8)
+  ) !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Text inside "10+ Technologies" box - DARK in light mode */
+.light .text-gray-700 {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
+}
+
+.dark .text-gray-700,
+:not(.light) .text-gray-700 {
+  color: #e5e7eb !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
+}
+
+/* CONTACT SECTION - Social media colors stay vibrant in light mode */
+.light .from-red-500 {
+  background: linear-gradient(to right, #ef4444, #f97316) !important;
+}
+
+.light .from-gray-600 {
+  background: linear-gradient(to right, #4b5563, #1f2937) !important;
+}
+
+.light .from-blue-600 {
+  background: linear-gradient(to right, #2563eb, #1e40af) !important;
+}
+
+.light .from-sky-500 {
+  background: linear-gradient(to right, #0ea5e9, #2563eb) !important;
+}
+
+.light .from-pink-500 {
+  background: linear-gradient(to right, #ec4899, #a855f7) !important;
+}
+
+/* Colored accent text stays vibrant */
+.light .text-toxic-green {
+  color: #047857 !important;
+  font-weight: 700 !important;
+}
+
+.light .text-electric-blue {
+  color: #1e40af !important;
+  font-weight: 700 !important;
+}
+
+.light .text-purple-400 {
+  color: #a855f7 !important;
+  font-weight: 700 !important;
+}
+
+.light .text-purple-500 {
+  color: #9333ea !important;
+  font-weight: 700 !important;
+}
+
+.light .text-purple-600 {
+  color: #7c3aed !important;
+  font-weight: 700 !important;
+}
+
+/* Experience/Journey timeline borders and backgrounds */
+.light .border-purple-500 {
+  border-color: #9333ea !important;
+}
+
+.light .bg-purple-500\/10 {
+  background: rgba(147, 51, 234, 0.15) !important;
+}
+
+.light .shadow-purple\/30 {
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3) !important;
+}
+
+/* FIX: "Arsenal" gradient text - Make it ALWAYS visible */
+.bg-gradient-to-r.from-electric-blue.to-toxic-green.bg-clip-text.text-transparent {
+  background: linear-gradient(to right, #3b82f6, #10b981) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+
+/* Ensure it works in light mode too */
+.light
+  .bg-gradient-to-r.from-electric-blue.to-toxic-green.bg-clip-text.text-transparent {
+  background: linear-gradient(to right, #1e40af, #047857) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  opacity: 1 !important;
+}
+
+/* DARK MODE: Keep skills boxes dark */
+.dark .bg-white\/80,
+:not(.light) .bg-white\/80 {
+  background: rgba(10, 10, 10, 0.4) !important;
+}
+
+.dark .bg-blue-50,
+:not(.light) .bg-blue-50 {
+  background: rgba(14, 165, 233, 0.05) !important;
+}
+
+.dark .border-gray-200,
+:not(.light) .border-gray-200 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ANIMATED BACKGROUNDS - More visible */
+.light section::before,
+.light section::after {
+  opacity: 0.6 !important;
+}
+
+/* INPUT FIELDS */
+.light input,
+.light textarea,
+.light select {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(30, 64, 175, 0.25) !important;
+  color: #0f172a !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+.light input:focus,
+.light textarea:focus,
+.light select:focus {
+  border-color: #047857 !important;
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.1) !important;
+}
+
+/* NAVBAR/HEADER */
+.light nav,
+.light header {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
 }

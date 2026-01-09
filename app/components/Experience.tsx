@@ -14,6 +14,9 @@ export default function Experience() {
         "Created full-stack DApps with React and Solidity",
       ],
       color: "toxic-green",
+      borderColor: "border-toxic-green",
+      bgColor: "bg-toxic-green/10",
+      textColor: "text-toxic-green",
     },
     {
       year: "2023-2024",
@@ -27,6 +30,9 @@ export default function Experience() {
         "Built decentralized raffle and crowdfunding systems",
       ],
       color: "electric-blue",
+      borderColor: "border-electric-blue",
+      bgColor: "bg-electric-blue/10",
+      textColor: "text-electric-blue",
     },
     {
       year: "2023",
@@ -39,7 +45,10 @@ export default function Experience() {
         "Specialized in prompt engineering",
         "Applied data analysis to real-world problems",
       ],
-      color: "purple-500",
+      color: "purple",
+      borderColor: "border-purple-500",
+      bgColor: "bg-purple-500/10",
+      textColor: "text-purple-500",
     },
   ];
 
@@ -66,16 +75,16 @@ export default function Experience() {
                 <div key={index} className="relative pl-20">
                   {/* Timeline Icon */}
                   <div
-                    className={`absolute left-0 w-16 h-16 bg-dark-bg border-4 border-${item.color} rounded-full flex items-center justify-center shadow-lg`}
+                    className={`absolute left-0 w-16 h-16 bg-dark-bg ${item.borderColor} border-4 rounded-full flex items-center justify-center shadow-lg shadow-${item.color}/30`}
                   >
-                    <IconComponent className={`w-8 h-8 text-${item.color}`} />
+                    <IconComponent className={`w-8 h-8 ${item.textColor}`} />
                   </div>
 
                   {/* Content Card */}
                   <div className="bg-dark-bg/50 backdrop-blur-sm border border-electric-blue/20 rounded-xl p-6 hover:border-toxic-green/50 transition-all duration-300 hover:scale-105">
                     <div className="flex items-center gap-4 mb-3">
                       <span
-                        className={`text-${item.color} font-bold text-xl px-4 py-1 bg-${item.color}/10 rounded-full`}
+                        className={`${item.textColor} font-bold text-xl px-4 py-1 ${item.bgColor} rounded-full`}
                       >
                         {item.year}
                       </span>

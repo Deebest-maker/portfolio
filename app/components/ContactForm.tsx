@@ -17,14 +17,13 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus("sending");
 
-    // Using Web3Forms (free email service)
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        access_key: "debede49-c172-4b5f-82af-776dcdcf589c", // We'll set this up
+        access_key: "debede49-c172-4b5f-82af-776dcdcf589c",
         name: formData.name,
         email: formData.email,
         subject: formData.subject,
@@ -113,11 +112,11 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full px-8 py-4 bg-gradient-to-r from-toxic-green to-emerald-400 text-dark-bg font-bold rounded-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg shadow-toxic-green/30"
+        className="w-full px-8 py-4 bg-toxic-green text-white font-bold rounded-xl hover:bg-toxic-green/90 hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg"
       >
         {status === "sending" && (
           <>
-            <div className="w-5 h-5 border-2 border-dark-bg border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             Sending...
           </>
         )}
