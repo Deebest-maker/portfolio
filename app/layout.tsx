@@ -67,10 +67,13 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
+  verification: {
+    google: "ayxwpzhhTGMNNitsNYuJkomIAJJOe6kV92R0XBPCwy4",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://portfolio-gamma-drab-53.vercel.app",
+    url: "https://tomadidibest.site",
     title: "Toma Hamidu Haruna | Blockchain & AI Developer",
     description:
       "Toma Hamidu Haruna (Toma Didibest) - Self-taught blockchain and AI developer from Maiduguri, Nigeria. Building the decentralized future with Solidity, DeFi, Chainlink VRF, zkSync, and machine learning. Open to scholarships and collaborations.",
@@ -101,9 +104,6 @@ export const metadata: Metadata = {
     apple:
       "https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/profiles/profile-1765066092599.jpg",
   },
-  verification: {
-    google: "google-site-verification-code", // You'll add this later from Google Search Console
-  },
 };
 
 export default function RootLayout({
@@ -118,6 +118,10 @@ export default function RootLayout({
           rel="icon"
           type="image/x-icon"
           href="https://ouqjpbscfvwnweiodybp.supabase.co/storage/v1/object/public/portfolio-images/favicon.ico"
+        />
+        <meta
+          name="google-site-verification"
+          content="ayxwpzhhTGMNNitsNYuJkomIAJJOe6kV92R0XBPCwy4"
         />
       </head>
       <body>
