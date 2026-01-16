@@ -123,6 +123,22 @@ export default function RootLayout({
           name="google-site-verification"
           content="ayxwpzhhTGMNNitsNYuJkomIAJJOe6kV92R0XBPCwy4"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme');
+                  if (theme === 'light') {
+                    document.documentElement.classList.add('light');
+                  } else {
+                    document.documentElement.classList.remove('light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>

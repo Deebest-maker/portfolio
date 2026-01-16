@@ -33,6 +33,25 @@ export default function Blog() {
     setLoading(false);
   }
 
+  // Extract plain text from HTML/Markdown content
+  const getExcerpt = (content: string, maxLength: number = 150) => {
+    if (!content) return "Click to read more...";
+
+    // Remove HTML tags
+    const plainText = content.replace(/<[^>]*>/g, " ");
+
+    // Remove markdown symbols (*, #, -, etc.)
+    const cleanText = plainText
+      .replace(/[#*\-_`]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    // Truncate to maxLength
+    if (cleanText.length <= maxLength) return cleanText;
+
+    return cleanText.substring(0, maxLength).trim() + "...";
+  };
+
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     setSubscribed(true);
@@ -117,7 +136,7 @@ export default function Blog() {
                     </h3>
 
                     <p className="text-gray-400 mb-4 line-clamp-3">
-                      {post.excerpt}
+                      {post.excerpt || getExcerpt(post.content)}
                     </p>
 
                     <div className="flex items-center justify-between text-sm text-gray-500">
@@ -134,7 +153,7 @@ export default function Blog() {
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
-                          {post.read_time}
+                          {post.read_time || "5 min"}
                         </div>
                       </div>
 
