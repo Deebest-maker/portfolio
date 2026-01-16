@@ -14,24 +14,32 @@ export default function BlogPost() {
   const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
 
   useEffect(() => {
-    fetchPost();
+    if (id) {
+      fetchPost();
+    }
   }, [id]);
 
   async function fetchPost() {
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .select("*")
-      .eq("id", id)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select("*")
+        .eq("id", id)
+        .single();
 
-    if (error) {
-      console.error("Error:", error);
-      setLoading(false);
-    } else {
-      setPost(data);
-      if (data) {
-        fetchRelatedPosts(data.category);
+      if (error) {
+        console.error("Error fetching post:", error);
+        setPost(null);
+      } else {
+        setPost(data);
+        if (data) {
+          fetchRelatedPosts(data.category);
+        }
       }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      setPost(null);
+    } finally {
       setLoading(false);
     }
   }
@@ -62,7 +70,6 @@ export default function BlogPost() {
   };
 
   const handleBackToBlog = () => {
-    // Navigate to homepage with blog hash
     window.location.href = "/#blog";
   };
 
@@ -104,10 +111,8 @@ export default function BlogPost() {
           <div className="w-full h-full bg-gradient-to-br from-electric-blue/20 via-purple-500/20 to-toxic-green/20" />
         )}
 
-        {/* Strong dark gradient overlay for readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/80 to-dark-bg/40" />
 
-        {/* Content over image */}
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="max-w-4xl mx-auto">
             <button
@@ -153,11 +158,8 @@ export default function BlogPost() {
 
       {/* Content Section */}
       <AnimatedSection className="max-w-4xl mx-auto px-6 py-16">
-        <article className="prose prose-invert prose-lg max-w-none">
-          <div
-            className="text-gray-300 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+        <article className="blog-content">
+          <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
         </article>
 
         {/* Related Posts */}
@@ -201,42 +203,122 @@ export default function BlogPost() {
       </AnimatedSection>
 
       <style jsx global>{`
-        .prose p {
-          margin-bottom: 1.5em;
+        /* Blog Content Styling */
+        .blog-content {
+          color: #d1d5db;
+          line-height: 1.75;
         }
-        .prose h2 {
+
+        .blog-content p {
+          margin-bottom: 1.5em;
+          font-size: 1.125rem;
+        }
+
+        .blog-content h1 {
+          color: #0ea5e9;
+          font-size: 2.5em;
+          font-weight: bold;
+          margin-top: 2em;
+          margin-bottom: 1em;
+          line-height: 1.2;
+        }
+
+        .blog-content h2 {
           color: #0ea5e9;
           font-size: 2em;
           font-weight: bold;
           margin-top: 2em;
           margin-bottom: 1em;
+          line-height: 1.3;
         }
-        .prose h3 {
+
+        .blog-content h3 {
           color: #22c55e;
           font-size: 1.5em;
           font-weight: bold;
           margin-top: 1.5em;
           margin-bottom: 0.75em;
+          line-height: 1.4;
         }
-        .prose code {
+
+        .blog-content strong {
+          color: #ffffff;
+          font-weight: 700;
+        }
+
+        .blog-content em {
+          color: #e5e7eb;
+          font-style: italic;
+        }
+
+        .blog-content code {
           background: rgba(14, 165, 233, 0.1);
           padding: 0.25em 0.5em;
           border-radius: 0.25em;
           color: #0ea5e9;
+          font-family: "Courier New", monospace;
+          font-size: 0.9em;
         }
-        .prose pre {
+
+        .blog-content pre {
           background: #1a1f3a;
-          padding: 1em;
+          padding: 1.5em;
           border-radius: 0.5em;
           overflow-x: auto;
+          margin: 1.5em 0;
         }
-        .prose a {
+
+        .blog-content pre code {
+          background: transparent;
+          padding: 0;
           color: #22c55e;
-          text-decoration: none;
+        }
+
+        .blog-content ul,
+        .blog-content ol {
+          padding-left: 2em;
+          margin-bottom: 1.5em;
+        }
+
+        .blog-content ul {
+          list-style-type: disc;
+        }
+
+        .blog-content ol {
+          list-style-type: decimal;
+        }
+
+        .blog-content li {
+          margin-bottom: 0.75em;
+          font-size: 1.125rem;
+        }
+
+        .blog-content li p {
+          margin-bottom: 0.5em;
+        }
+
+        .blog-content a {
+          color: #22c55e;
+          text-decoration: underline;
           transition: color 0.3s;
         }
-        .prose a:hover {
+
+        .blog-content a:hover {
           color: #0ea5e9;
+        }
+
+        .blog-content hr {
+          border: none;
+          border-top: 2px solid rgba(255, 255, 255, 0.1);
+          margin: 3em 0;
+        }
+
+        .blog-content blockquote {
+          border-left: 4px solid #0ea5e9;
+          padding-left: 1.5em;
+          margin: 1.5em 0;
+          font-style: italic;
+          color: #9ca3af;
         }
       `}</style>
     </div>
