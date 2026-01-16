@@ -37,33 +37,51 @@ export default function Blog() {
   const getExcerpt = (content: string, maxLength: number = 200) => {
     if (!content) return "Click to read more...";
 
-    // Remove HTML tags
-    let plainText = content.replace(/<[^>]*>/g, " ");
+    try {
+      // Step 1: Remove all HTML tags completely
+      let plainText = content.replace(/<[^>]*>/g, " ");
 
-    // Remove markdown headers (##, ###, etc.)
-    plainText = plainText.replace(/^#+\s+/gm, "");
+      // Step 2: Remove markdown headers (# ## ###)
+      plainText = plainText.replace(/^#{1,6}\s+/gm, "");
 
-    // Remove markdown bold/italic
-    plainText = plainText.replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, "$1");
+      // Step 3: Remove markdown bold/italic (**text** or *text*)
+      plainText = plainText.replace(/[*_]{1,3}([^*_\n]+)[*_]{1,3}/g, "$1");
 
-    // Remove markdown links
-    plainText = plainText.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+      // Step 4: Remove markdown links [text](url)
+      plainText = plainText.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
 
-    // Remove special characters and extra spaces
-    const cleanText = plainText
-      .replace(/[`~]/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
+      // Step 5: Remove code blocks ```
+      plainText = plainText.replace(/```[\s\S]*?```/g, "");
+      plainText = plainText.replace(/`([^`]+)`/g, "$1");
 
-    // Truncate to maxLength at word boundary
-    if (cleanText.length <= maxLength) return cleanText;
+      // Step 6: Remove horizontal rules (---, ***)
+      plainText = plainText.replace(/^[-*_]{3,}$/gm, "");
 
-    const truncated = cleanText.substring(0, maxLength);
-    const lastSpace = truncated.lastIndexOf(" ");
+      // Step 7: Remove extra whitespace and newlines
+      const cleanText = plainText
+        .replace(/\n+/g, " ") // Replace newlines with spaces
+        .replace(/\s+/g, " ") // Replace multiple spaces with single space
+        .replace(/[~]/g, "") // Remove special chars
+        .trim();
 
-    return (
-      (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + "..."
-    );
+      // Step 8: If we got nothing, return default
+      if (!cleanText || cleanText.length === 0) {
+        return "Click to read more...";
+      }
+
+      // Step 9: Truncate to maxLength at word boundary
+      if (cleanText.length <= maxLength) return cleanText;
+
+      const truncated = cleanText.substring(0, maxLength);
+      const lastSpace = truncated.lastIndexOf(" ");
+
+      return (
+        (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + "..."
+      );
+    } catch (error) {
+      console.error("Error extracting excerpt:", error);
+      return "Click to read more...";
+    }
   };
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -152,6 +170,15 @@ export default function Blog() {
                     <p className="text-gray-400 mb-4 line-clamp-3">
                       {post.excerpt || getExcerpt(post.content)}
                     </p>
+
+                    {/* Debug - Remove this after testing */}
+                    {!post.excerpt &&
+                      process.env.NODE_ENV === "development" && (
+                        <p className="text-xs text-red-400 mb-2">
+                          Debug: Using auto-excerpt. Content length:{" "}
+                          {post.content?.length || 0}
+                        </p>
+                      )}
 
                     <div className="flex items-center justify-between text-sm text-gray-500">
                       <div className="flex items-center gap-4">
