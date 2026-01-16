@@ -159,6 +159,13 @@ export default function BlogPost() {
       {/* Content Section */}
       <AnimatedSection className="max-w-4xl mx-auto px-6 py-16">
         <article className="blog-content">
+          {/* DEBUG SECTION - Remove this after debugging */}
+          <pre className="text-white bg-red-900 p-4 text-xs overflow-auto mb-8 rounded">
+            Content Length: {post.content?.length || 0}
+            {"\n"}
+            First 200 chars: {post.content?.substring(0, 200)}
+          </pre>
+
           <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
         </article>
 

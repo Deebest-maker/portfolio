@@ -27,6 +27,7 @@ export default function EditBlogPost() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
+  const [postContent, setPostContent] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     excerpt: "",
@@ -54,8 +55,20 @@ export default function EditBlogPost() {
   });
 
   useEffect(() => {
-    fetchPost();
+    if (id) {
+      fetchPost();
+    }
   }, [id]);
+
+  // Set content when editor is ready
+  useEffect(() => {
+    if (editor && postContent && !loading) {
+      // Small delay to ensure editor is fully mounted
+      setTimeout(() => {
+        editor.commands.setContent(postContent);
+      }, 100);
+    }
+  }, [editor, postContent, loading]);
 
   async function fetchPost() {
     const { data, error } = await supabase
@@ -77,7 +90,7 @@ export default function EditBlogPost() {
         published: data.published,
       });
       setImagePreview(data.image || "");
-      editor?.commands.setContent(data.content);
+      setPostContent(data.content || "");
       setLoading(false);
     }
   }
@@ -127,9 +140,17 @@ export default function EditBlogPost() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!editor) {
+      alert("Editor not ready");
+      return;
+    }
+
     setSaving(true);
 
-    const content = editor?.getHTML() || "";
+    const content = editor.getHTML();
+
+    console.log("Saving content:", content); // Debug log
 
     const { error } = await supabase
       .from("blog_posts")
@@ -394,7 +415,11 @@ export default function EditBlogPost() {
               </div>
 
               <div className="bg-dark-card/50 border border-electric-blue/30 border-t-0 rounded-b-lg overflow-hidden">
-                <EditorContent editor={editor} />
+                {editor ? (
+                  <EditorContent editor={editor} />
+                ) : (
+                  <div className="p-4 text-gray-400">Loading editor...</div>
+                )}
               </div>
             </div>
 
@@ -459,7 +484,7 @@ export default function EditBlogPost() {
             </button>
             <button
               type="submit"
-              disabled={saving}
+              disabled={saving || !editor}
               className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-toxic-green text-dark-bg font-semibold rounded-lg hover:bg-toxic-green/80 transition-colors disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
