@@ -34,22 +34,36 @@ export default function Blog() {
   }
 
   // Extract plain text from HTML/Markdown content
-  const getExcerpt = (content: string, maxLength: number = 150) => {
+  const getExcerpt = (content: string, maxLength: number = 200) => {
     if (!content) return "Click to read more...";
 
     // Remove HTML tags
-    const plainText = content.replace(/<[^>]*>/g, " ");
+    let plainText = content.replace(/<[^>]*>/g, " ");
 
-    // Remove markdown symbols (*, #, -, etc.)
+    // Remove markdown headers (##, ###, etc.)
+    plainText = plainText.replace(/^#+\s+/gm, "");
+
+    // Remove markdown bold/italic
+    plainText = plainText.replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, "$1");
+
+    // Remove markdown links
+    plainText = plainText.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+
+    // Remove special characters and extra spaces
     const cleanText = plainText
-      .replace(/[#*\-_`]/g, "")
+      .replace(/[`~]/g, "")
       .replace(/\s+/g, " ")
       .trim();
 
-    // Truncate to maxLength
+    // Truncate to maxLength at word boundary
     if (cleanText.length <= maxLength) return cleanText;
 
-    return cleanText.substring(0, maxLength).trim() + "...";
+    const truncated = cleanText.substring(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(" ");
+
+    return (
+      (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + "..."
+    );
   };
 
   const handleSubscribe = (e: React.FormEvent) => {
