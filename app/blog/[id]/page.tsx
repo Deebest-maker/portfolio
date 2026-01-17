@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { Calendar, Clock, ArrowLeft, Share2 } from "lucide-react";
-import AnimatedSection from "@/app/components/AnimatedSection";
 
 export default function BlogPost() {
   const params = useParams();
@@ -11,7 +10,6 @@ export default function BlogPost() {
   const id = params.id as string;
   const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -31,10 +29,9 @@ export default function BlogPost() {
         console.error("Error fetching post:", error);
         setPost(null);
       } else {
+        console.log("Post loaded successfully:", data?.title);
+        console.log("Content length:", data?.content?.length);
         setPost(data);
-        if (data) {
-          fetchRelatedPosts(data.category);
-        }
       }
     } catch (error) {
       console.error("Unexpected error:", error);
@@ -44,33 +41,17 @@ export default function BlogPost() {
     }
   }
 
-  async function fetchRelatedPosts(category: string) {
-    const { data } = await supabase
-      .from("blog_posts")
-      .select("*")
-      .eq("category", category)
-      .eq("published", true)
-      .neq("id", id)
-      .limit(3);
-
-    if (data) setRelatedPosts(data);
-  }
-
   const sharePost = () => {
-    if (navigator.share) {
+    if (post && navigator.share) {
       navigator.share({
         title: post.title,
         text: post.excerpt,
         url: window.location.href,
       });
-    } else {
+    } else if (post) {
       navigator.clipboard.writeText(window.location.href);
       alert("Link copied to clipboard!");
     }
-  };
-
-  const handleBackToBlog = () => {
-    window.location.href = "/#blog";
   };
 
   if (loading) {
@@ -99,7 +80,7 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-dark-bg">
-      {/* Hero Image Section */}
+      {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
         {post.image ? (
           <img
@@ -116,7 +97,7 @@ export default function BlogPost() {
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="max-w-4xl mx-auto">
             <button
-              onClick={handleBackToBlog}
+              onClick={() => (window.location.href = "/#blog")}
               className="flex items-center gap-2 text-white hover:text-toxic-green transition-colors mb-6 font-semibold"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -157,95 +138,48 @@ export default function BlogPost() {
       </div>
 
       {/* Content Section */}
-      <AnimatedSection className="max-w-4xl mx-auto px-6 py-16">
-        <article className="blog-content">
-          {/* DEBUG SECTION - Remove this after debugging */}
-          <pre className="text-white bg-red-900 p-4 text-xs overflow-auto mb-8 rounded">
-            Content Length: {post.content?.length || 0}
-            {"\n"}
-            First 200 chars: {post.content?.substring(0, 200)}
-          </pre>
-
-          <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
-        </article>
-
-        {/* Related Posts */}
-        {relatedPosts.length > 0 && (
-          <div className="mt-16 pt-16 border-t border-white/10">
-            <h2 className="text-3xl font-bold text-white mb-8">
-              Related Posts
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {relatedPosts.map((related) => (
-                <button
-                  key={related.id}
-                  onClick={() => router.push(`/blog/${related.id}`)}
-                  className="group bg-dark-card/50 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden hover:border-toxic-green/50 transition-all text-left"
-                >
-                  {related.image ? (
-                    <img
-                      src={related.image}
-                      alt={related.title}
-                      className="w-full h-40 object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-40 bg-gradient-to-br from-electric-blue/20 to-toxic-green/20" />
-                  )}
-                  <div className="p-4">
-                    <span className="text-xs text-electric-blue font-semibold">
-                      {related.category}
-                    </span>
-                    <h3 className="text-lg font-bold text-white mt-2 group-hover:text-toxic-green transition-colors">
-                      {related.title}
-                    </h3>
-                    <p className="text-sm text-gray-400 mt-2 line-clamp-2">
-                      {related.excerpt}
-                    </p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </AnimatedSection>
+      <div className="max-w-4xl mx-auto px-6 py-16">
+        <article
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: post.content || "" }}
+        />
+      </div>
 
       <style jsx global>{`
-        /* Blog Content Styling */
         .blog-content {
-          color: #d1d5db;
+          color: #e5e7eb;
+          font-size: 1.125rem;
           line-height: 1.75;
         }
 
         .blog-content p {
           margin-bottom: 1.5em;
-          font-size: 1.125rem;
+          color: #d1d5db;
         }
 
         .blog-content h1 {
-          color: #0ea5e9;
-          font-size: 2.5em;
-          font-weight: bold;
+          color: #3b82f6;
+          font-size: 2.5rem;
+          font-weight: 700;
           margin-top: 2em;
           margin-bottom: 1em;
           line-height: 1.2;
         }
 
         .blog-content h2 {
-          color: #0ea5e9;
-          font-size: 2em;
-          font-weight: bold;
+          color: #3b82f6;
+          font-size: 2rem;
+          font-weight: 700;
           margin-top: 2em;
           margin-bottom: 1em;
-          line-height: 1.3;
         }
 
         .blog-content h3 {
-          color: #22c55e;
-          font-size: 1.5em;
-          font-weight: bold;
+          color: #10b981;
+          font-size: 1.5rem;
+          font-weight: 700;
           margin-top: 1.5em;
           margin-bottom: 0.75em;
-          line-height: 1.4;
         }
 
         .blog-content strong {
@@ -254,37 +188,13 @@ export default function BlogPost() {
         }
 
         .blog-content em {
-          color: #e5e7eb;
           font-style: italic;
-        }
-
-        .blog-content code {
-          background: rgba(14, 165, 233, 0.1);
-          padding: 0.25em 0.5em;
-          border-radius: 0.25em;
-          color: #0ea5e9;
-          font-family: "Courier New", monospace;
-          font-size: 0.9em;
-        }
-
-        .blog-content pre {
-          background: #1a1f3a;
-          padding: 1.5em;
-          border-radius: 0.5em;
-          overflow-x: auto;
-          margin: 1.5em 0;
-        }
-
-        .blog-content pre code {
-          background: transparent;
-          padding: 0;
-          color: #22c55e;
         }
 
         .blog-content ul,
         .blog-content ol {
+          margin: 1.5em 0;
           padding-left: 2em;
-          margin-bottom: 1.5em;
         }
 
         .blog-content ul {
@@ -297,31 +207,49 @@ export default function BlogPost() {
 
         .blog-content li {
           margin-bottom: 0.75em;
-          font-size: 1.125rem;
-        }
-
-        .blog-content li p {
-          margin-bottom: 0.5em;
+          color: #d1d5db;
         }
 
         .blog-content a {
-          color: #22c55e;
+          color: #10b981;
           text-decoration: underline;
-          transition: color 0.3s;
         }
 
         .blog-content a:hover {
-          color: #0ea5e9;
+          color: #3b82f6;
+        }
+
+        .blog-content code {
+          background: rgba(59, 130, 246, 0.1);
+          color: #3b82f6;
+          padding: 0.2em 0.4em;
+          border-radius: 0.25em;
+          font-family: monospace;
+          font-size: 0.9em;
+        }
+
+        .blog-content pre {
+          background: #1e293b;
+          padding: 1.5em;
+          border-radius: 0.5em;
+          overflow-x: auto;
+          margin: 1.5em 0;
+        }
+
+        .blog-content pre code {
+          background: transparent;
+          color: #10b981;
+          padding: 0;
         }
 
         .blog-content hr {
           border: none;
-          border-top: 2px solid rgba(255, 255, 255, 0.1);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
           margin: 3em 0;
         }
 
         .blog-content blockquote {
-          border-left: 4px solid #0ea5e9;
+          border-left: 4px solid #3b82f6;
           padding-left: 1.5em;
           margin: 1.5em 0;
           font-style: italic;
