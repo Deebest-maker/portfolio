@@ -10,6 +10,26 @@ export default function BlogPost() {
   const id = params.id as string;
   const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Check theme
+    const checkTheme = () => {
+      const isLight = document.documentElement.classList.contains("light");
+      setIsDark(!isLight);
+    };
+
+    checkTheme();
+
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -78,8 +98,14 @@ export default function BlogPost() {
     );
   }
 
+  const contentStyles: React.CSSProperties = {
+    color: isDark ? "#e5e7eb" : "#000000",
+    fontSize: "1.125rem",
+    lineHeight: "1.75",
+  };
+
   return (
-    <div className="min-h-screen bg-dark-bg">
+    <div className="min-h-screen bg-dark-bg light:bg-white">
       {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
         {post.image ? (
@@ -140,95 +166,84 @@ export default function BlogPost() {
       {/* Content Section */}
       <div className="max-w-4xl mx-auto px-6 py-16">
         <article
-          className="blog-content"
+          style={contentStyles}
           dangerouslySetInnerHTML={{ __html: post.content || "" }}
         />
       </div>
 
       <style jsx global>{`
-        .blog-content {
-          color: #e5e7eb;
+        /* Base styles for all elements */
+        article p {
+          margin-bottom: 1.5em;
           font-size: 1.125rem;
           line-height: 1.75;
         }
 
-        .blog-content p {
-          margin-bottom: 1.5em;
-          color: #d1d5db;
-        }
-
-        .blog-content h1 {
-          color: #3b82f6;
+        article h1 {
           font-size: 2.5rem;
-          font-weight: 700;
+          font-weight: 800;
           margin-top: 2em;
           margin-bottom: 1em;
           line-height: 1.2;
         }
 
-        .blog-content h2 {
-          color: #3b82f6;
+        article h2 {
           font-size: 2rem;
-          font-weight: 700;
+          font-weight: 800;
           margin-top: 2em;
           margin-bottom: 1em;
+          line-height: 1.3;
         }
 
-        .blog-content h3 {
-          color: #10b981;
+        article h3 {
           font-size: 1.5rem;
           font-weight: 700;
           margin-top: 1.5em;
           margin-bottom: 0.75em;
+          line-height: 1.4;
         }
 
-        .blog-content strong {
-          color: #ffffff;
-          font-weight: 700;
+        article strong {
+          font-weight: 800;
         }
 
-        .blog-content em {
+        article em {
           font-style: italic;
         }
 
-        .blog-content ul,
-        .blog-content ol {
+        article ul,
+        article ol {
           margin: 1.5em 0;
           padding-left: 2em;
         }
 
-        .blog-content ul {
+        article ul {
           list-style-type: disc;
         }
 
-        .blog-content ol {
+        article ol {
           list-style-type: decimal;
         }
 
-        .blog-content li {
+        article li {
           margin-bottom: 0.75em;
-          color: #d1d5db;
+          font-size: 1.125rem;
         }
 
-        .blog-content a {
-          color: #10b981;
+        article a {
           text-decoration: underline;
+          font-weight: 600;
         }
 
-        .blog-content a:hover {
-          color: #3b82f6;
-        }
-
-        .blog-content code {
+        article code {
           background: rgba(59, 130, 246, 0.1);
-          color: #3b82f6;
           padding: 0.2em 0.4em;
           border-radius: 0.25em;
           font-family: monospace;
           font-size: 0.9em;
         }
 
-        .blog-content pre {
+        article pre {
           background: #1e293b;
           padding: 1.5em;
           border-radius: 0.5em;
@@ -236,24 +251,95 @@ export default function BlogPost() {
           margin: 1.5em 0;
         }
 
-        .blog-content pre code {
-          background: transparent;
-          color: #10b981;
-          padding: 0;
-        }
-
-        .blog-content hr {
+        article hr {
           border: none;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-top: 2px solid;
           margin: 3em 0;
         }
 
-        .blog-content blockquote {
-          border-left: 4px solid #3b82f6;
+        article blockquote {
+          border-left: 4px solid;
           padding-left: 1.5em;
           margin: 1.5em 0;
           font-style: italic;
-          color: #9ca3af;
+        }
+
+        /* DARK MODE COLORS */
+        article[style*="color: rgb(229, 231, 235)"] h1 {
+          color: #3b82f6 !important;
+        }
+
+        article[style*="color: rgb(229, 231, 235)"] h2 {
+          color: #3b82f6 !important;
+        }
+
+        article[style*="color: rgb(229, 231, 235)"] h3 {
+          color: #10b981 !important;
+        }
+
+        article[style*="color: rgb(229, 231, 235)"] a {
+          color: #10b981 !important;
+        }
+
+        article[style*="color: rgb(229, 231, 235)"] strong {
+          color: #ffffff !important;
+        }
+
+        article[style*="color: rgb(229, 231, 235)"] code {
+          color: #3b82f6 !important;
+        }
+
+        article[style*="color: rgb(229, 231, 235)"] hr {
+          border-top-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* LIGHT MODE COLORS */
+        article[style*="color: rgb(0, 0, 0)"] p,
+        article[style*="color: rgb(0, 0, 0)"] span,
+        article[style*="color: rgb(0, 0, 0)"] div,
+        article[style*="color: rgb(0, 0, 0)"] li {
+          color: #000000 !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] h1 {
+          color: #1e40af !important;
+          font-size: 2.5rem !important;
+          font-weight: 800 !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] h2 {
+          color: #1e40af !important;
+          font-size: 2rem !important;
+          font-weight: 800 !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] h3 {
+          color: #047857 !important;
+          font-size: 1.5rem !important;
+          font-weight: 700 !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] a {
+          color: #047857 !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] strong {
+          color: #000000 !important;
+          font-weight: 800 !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] code {
+          color: #1e40af !important;
+          background: rgba(30, 64, 175, 0.1) !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] pre {
+          background: #f1f5f9 !important;
+          border: 1px solid #cbd5e1 !important;
+        }
+
+        article[style*="color: rgb(0, 0, 0)"] hr {
+          border-top-color: rgba(0, 0, 0, 0.15) !important;
         }
       `}</style>
     </div>
