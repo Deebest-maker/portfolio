@@ -2,7 +2,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
-import { Code2, ExternalLink } from "lucide-react";
+import { Code2, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 interface Project {
@@ -143,6 +143,7 @@ function ProjectCard({
   inView: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -152,12 +153,12 @@ function ProjectCard({
   const rotateX = useTransform(
     mouseYSpring,
     [-0.5, 0.5],
-    ["7.5deg", "-7.5deg"]
+    ["7.5deg", "-7.5deg"],
   );
   const rotateY = useTransform(
     mouseXSpring,
     [-0.5, 0.5],
-    ["-7.5deg", "7.5deg"]
+    ["-7.5deg", "7.5deg"],
   );
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -177,6 +178,13 @@ function ProjectCard({
     y.set(0);
     setIsHovered(false);
   };
+
+  // Determine if description is long (more than 200 characters)
+  const isLongDescription = project.description.length > 200;
+  const truncatedDescription =
+    isLongDescription && !isExpanded
+      ? project.description.substring(0, 200) + "..."
+      : project.description;
 
   return (
     <motion.div
@@ -228,12 +236,28 @@ function ProjectCard({
           {project.title}
         </motion.h3>
 
-        <motion.p
-          className="text-white mb-4 leading-relaxed"
-          style={{ transform: "translateZ(25px)" }}
-        >
-          {project.description}
-        </motion.p>
+        <motion.div className="mb-4" style={{ transform: "translateZ(25px)" }}>
+          <p className="text-white leading-relaxed">{truncatedDescription}</p>
+
+          {isLongDescription && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-2 flex items-center gap-1 text-electric-blue hover:text-toxic-green transition-colors text-sm font-semibold"
+            >
+              {isExpanded ? (
+                <>
+                  <span>Read Less</span>
+                  <ChevronUp className="w-4 h-4" />
+                </>
+              ) : (
+                <>
+                  <span>Read More</span>
+                  <ChevronDown className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          )}
+        </motion.div>
 
         <div
           className="flex flex-wrap gap-2 mb-4"
@@ -255,9 +279,12 @@ function ProjectCard({
         >
           <span
             className={`text-sm font-semibold flex items-center gap-1 ${
-              project.status === "Deployed"
+              project.status === "Deployed" ||
+              project.status === "Production Ready"
                 ? "text-toxic-green"
-                : "text-electric-blue"
+                : project.status === "Live on Testnet"
+                  ? "text-yellow-400"
+                  : "text-electric-blue"
             }`}
           >
             <motion.span
