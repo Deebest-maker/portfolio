@@ -15,7 +15,7 @@ export default function EditProject() {
     title: "",
     description: "",
     tech: "",
-    status: "In Development",
+    status: "",
     featured: false,
     github: "",
   });
@@ -151,20 +151,20 @@ export default function EditProject() {
               <label className="block text-sm font-semibold text-gray-300 mb-2">
                 Status *
               </label>
-              <select
+              <input
+                type="text"
+                required
                 value={formData.status}
                 onChange={(e) =>
                   setFormData({ ...formData, status: e.target.value })
                 }
                 className="w-full px-4 py-3 bg-dark-card/50 border border-electric-blue/30 rounded-lg text-white focus:outline-none focus:border-toxic-green"
-              >
-                <option value="In Development">In Development</option>
-                <option value="Deployed">Deployed</option>
-                <option value="Production Ready">Production Ready</option>
-                <option value="Live on Testnet">Live on Testnet</option>
-                <option value="Completed">Completed</option>
-                <option value="Beta">Beta</option>
-              </select>
+                placeholder="In Development, Deployed, Live on Testnet, Production Ready, etc."
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Examples: In Development, Deployed, Live on Testnet, Production
+                Ready, Completed, Beta
+              </p>
             </div>
 
             <div>
